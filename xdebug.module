@@ -17,5 +17,17 @@ function xdebug_boot() {
     $file .= filter_input(INPUT_GET, 'XDEBUG_TRACE', FILTER_SANITIZE_STRING);
     xdebug_start_trace($file);
   }
+  if (filter_has_var(INPUT_GET, 'XDEBUG_CC_UNUSED')) {
+    xdebug_start_code_coverage(XDEBUG_CC_UNUSED);
+  } else if (filter_has_var(INPUT_GET, 'XDEBUG_CC_DEAD_CODE')) {
+    xdebug_start_code_coverage(XDEBUG_CC_DEAD_CODE);
+  }
   drupal_register_shutdown_function('xdebug_shutdown', TRUE);
+}
+
+/**
+ * Shutdown function stops all xdebug behaviors.
+ */
+function xdebug_shutdown() {
+  xdebug_stop_code_coverage(TRUE);
 }
