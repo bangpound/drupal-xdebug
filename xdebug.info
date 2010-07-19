@@ -1,0 +1,5 @@
+; $Id$
+name = Xdebug
+description = TODO: Description of module
+core = 7.x
+files[] = xdebug.module

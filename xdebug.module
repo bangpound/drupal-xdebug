@@ -1,0 +1,21 @@
+<?php
+// $Id$
+/**
+ * @file xdebug.module
+ * TODO: Enter file description here.
+ */
+
+/**
+ * Implementation of hook_boot().
+ */
+function xdebug_boot() {
+  ini_set('html_errors', 1);
+  variable_get('xdebug', array());
+
+  if (filter_has_var(INPUT_GET, 'XDEBUG_TRACE')) {
+    $file = ini_get('xdebug.trace_output_dir') .'/';
+    $file .= filter_input(INPUT_GET, 'XDEBUG_TRACE', FILTER_SANITIZE_STRING);
+    xdebug_start_trace($file);
+  }
+  drupal_register_shutdown_function('xdebug_shutdown', TRUE);
+}
